@@ -82,6 +82,20 @@ public class PersonaController extends AppCompatActivity {
         }
     }
 
+    public Cursor DevolverPersona(String cod){
+        try {
+            String[] args = new String[] {cod};
+            SQLiteDatabase database = db.getReadableDatabase();
+            // Cursor c = database.query(DefDB.tabla_persona, null, "codigo=?", args, null, null, null);
+            Cursor c=   database.rawQuery("select nombre as _id, codigo,estrato, salario, nivelEducativo from persona where codigo=?",args);
+            return c;
+        }catch (Exception ex) {
+            System.out.println("Error al consultar");
+            return null;
+        }
+
+    }
+
     public long Eliminar(String cod){
 
         try {
@@ -103,17 +117,6 @@ public class PersonaController extends AppCompatActivity {
             return 0;
         }
 
-    }
-
-    public void EliminarTodo(){
-        try {
-
-            SQLiteDatabase database = db.getWritableDatabase();
-            database.delete(DefDB.tabla_est,null,null);
-
-        }catch (Exception e){
-
-        }
     }
 
 

@@ -161,6 +161,76 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                 dialog3.show();
                 break;
 
+            case R.id.mn_eliminar:
+                AlertDialog.Builder dialog2 = new AlertDialog.Builder(this);
+                dialog2.setTitle("Ingrese el codigo del paciente");
+                //dialog3.setMessage("No se encontro elemento a borrar");
+                dialog2.setCancelable(true);
+
+                final EditText input = new EditText(this);
+                input.setHeight(130);
+                input.setWidth(340);
+                input.setGravity(Gravity.LEFT);
+                input.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+                dialog2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        String cod=  input.getText().toString();
+                        c.Eliminar(cod);
+                    }
+                });
+                dialog2.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Intent i = new Intent(getApplicationContext(),Listado.class);
+                        startActivity(i);
+                    }
+                });
+
+                dialog2.setView(input);
+                dialog2.show();
+
+                break;
+
+            case R.id.mn_buscar:
+                AlertDialog.Builder dialogbuscar = new AlertDialog.Builder(this);
+                dialogbuscar.setTitle("Ingrese la cedula de la persona");
+                //dialog3.setMessage("No se encontro elemento a borrar");
+                dialogbuscar.setCancelable(true);
+
+                final EditText inputBuscar = new EditText(this);
+                inputBuscar.setHeight(130);
+                inputBuscar.setWidth(340);
+                inputBuscar.setGravity(Gravity.LEFT);
+                inputBuscar.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+                dialogbuscar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        String cod=  inputBuscar.getText().toString();
+                        Intent i = new Intent(getApplicationContext(),Listado.class);
+                        i.putExtra("codigo",cod);
+                        i.putExtra("listar",1);
+                        startActivity(i);
+
+                    }
+                });
+                dialogbuscar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Intent i = new Intent(getApplicationContext(), Listado.class);
+                        startActivity(i);
+                    }
+                });
+
+                dialogbuscar.setView(inputBuscar);
+                dialogbuscar.show();
+
+                break;
+
+
+
         }
         return super.onOptionsItemSelected(item);
     }

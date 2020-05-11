@@ -2,6 +2,7 @@ package com.cdlc.parcial2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -21,6 +22,21 @@ public class Listado extends AppCompatActivity {
 
         Cursor cur = c.allPersonas();
 
+        PersonaCursorAdapter eca = new PersonaCursorAdapter(this,cur,0);
+        listado.setAdapter(eca);
+        eca.notifyDataSetChanged();
+        Intent intent = getIntent();
+        int intExtra= intent.getIntExtra("listar",0);
+        if(intExtra==1){
+            ListarUnico();
+        }
+
+    }
+
+    public void ListarUnico(){
+        Intent intent = getIntent();
+        String codigoExtra= intent.getStringExtra("codigo");
+        Cursor cur= c.DevolverPersona(codigoExtra);
         PersonaCursorAdapter eca = new PersonaCursorAdapter(this,cur,0);
         listado.setAdapter(eca);
         eca.notifyDataSetChanged();
